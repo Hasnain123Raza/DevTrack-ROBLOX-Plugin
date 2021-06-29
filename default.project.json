@@ -1,0 +1,24 @@
+{
+  "name": "roblox-plugin",
+  "tree": {
+    "$className": "DataModel",
+
+    "ServerScriptService": {
+      "DevTrackPlugin": {
+        "$className": "Folder",
+
+        "Main": {
+          "$path": "src/Main"
+        },
+
+        "Resources": {
+          "$className": "Folder",
+  
+          "Roact": {
+            "$path": "packages/roact"
+          }
+        }
+      }
+    }
+  }
+}

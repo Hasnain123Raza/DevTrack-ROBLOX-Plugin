@@ -6,17 +6,10 @@
     "ServerScriptService": {
       "DevTrackPlugin": {
         "$className": "Folder",
+        "$path": "src",
 
-        "Main": {
-          "$path": "src/Main"
-        },
-
-        "Resources": {
-          "$className": "Folder",
-  
-          "Roact": {
-            "$path": "packages/roact"
-          }
+        "Packages": {
+          "$path": "packages"
         }
       }
     }

@@ -1,3 +1,6 @@
 [submodule "roact"]
 	path = packages/roact
 	url = https://github.com/Roblox/roact/
+[submodule "roblox-lua-promise"]
+	path = packages/roblox-lua-promise
+	url = https://github.com/evaera/roblox-lua-promise

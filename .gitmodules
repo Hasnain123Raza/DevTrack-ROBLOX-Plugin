@@ -4,3 +4,6 @@
 [submodule "roblox-lua-promise"]
 	path = packages/roblox-lua-promise
 	url = https://github.com/evaera/roblox-lua-promise
+[submodule "llama"]
+	path = packages/llama
+	url = https://github.com/F-RDY/llama.git

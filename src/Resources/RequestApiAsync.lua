@@ -9,9 +9,13 @@ local UrlDecode = require(shared.DevTrack.Resources.UrlDecode)
 local Cookie = plugin:GetSetting("Cookie [DO NOT SHARE THIS WITH ANYONE]")
 
 local function RequestApiAsync(requestOptions)
-	requestOptions.Url = Protocol .. Host .. requestOptions.Url
-	requestOptions.Headers = requestOptions.Headers or {}
+	local requestOptions = {
+		Url = Protocol .. Host .. requestOptions.Url,
+		Headers = requestOptions.Headers or {},
+	}
 	requestOptions.Headers.Cookie = Cookie
+
+	print(requestOptions.Url)
 
 	return Promise.new(function(resolve, reject)
 		local success, response = pcall(function()
@@ -38,6 +42,19 @@ local function RequestApiAsync(requestOptions)
 			local urlDecodedCookie = UrlDecode(rawCookie)
 			Cookie = urlDecodedCookie
 			plugin:SetSetting("Cookie [DO NOT SHARE THIS WITH ANYONE]", Cookie)
+		end
+
+		local parseJsonSuccess, parseJsonResponse = pcall(function()
+			response.Body = HttpService:JSONDecode(response.Body)
+		end)
+		if not parseJsonSuccess then
+			return resolve({
+				success = false,
+				errors = {
+					{ path = { "alert" }, message = "There was a problem understanding server's response" },
+					{ path = { "pcall" }, message = parseJsonResponse },
+				},
+			})
 		end
 
 		return resolve(response)

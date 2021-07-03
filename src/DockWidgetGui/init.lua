@@ -1,7 +1,10 @@
 local plugin = shared.plugin
 
 local Roact = require(shared.DevTrack.Packages.Roact)
-local App = require(script.App)
+
+local App = require(shared.DevTrack.DockWidgetGui.App)
+local Theme = require(shared.DevTrack.DockWidgetGui.Components.Theme)
+local Router = require(shared.DevTrack.DockWidgetGui.Components.Router)
 
 local function InitializeDockWidgetGui()
 	local devTrackDockWidget = plugin:CreateDockWidgetPluginGui(
@@ -11,7 +14,15 @@ local function InitializeDockWidgetGui()
 
 	devTrackDockWidget.Title = "DevTrack"
 
-	Roact.mount(Roact.createElement(App), devTrackDockWidget, "App")
+	Roact.mount(
+		Roact.createElement(Theme, {}, {
+			Roact.createElement(Router, {}, {
+				Roact.createElement(App),
+			}),
+		}),
+		devTrackDockWidget,
+		"App"
+	)
 
 	return devTrackDockWidget
 end

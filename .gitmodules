@@ -7,3 +7,9 @@
 [submodule "llama"]
 	path = packages/llama
 	url = https://github.com/F-RDY/llama.git
+[submodule "rodux"]
+	path = packages/rodux
+	url = https://github.com/Roblox/rodux.git
+[submodule "roact-rodux"]
+	path = packages/roact-rodux
+	url = https://github.com/Roblox/roact-rodux.git

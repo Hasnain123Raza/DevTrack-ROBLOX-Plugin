@@ -1,10 +1,10 @@
 local plugin = shared.plugin
 
 local Roact = require(shared.DevTrack.Packages.Roact)
+local RoactRodux = require(shared.DevTrack.Packages.RoactRodux)
+local Store = require(shared.DevTrack.DockWidgetGui.Services.Rodux.Store)
 
 local App = require(shared.DevTrack.DockWidgetGui.App)
-local Theme = require(shared.DevTrack.DockWidgetGui.Components.Theme)
-local Router = require(shared.DevTrack.DockWidgetGui.Components.Router)
 
 local function InitializeDockWidgetGui()
 	local devTrackDockWidget = plugin:CreateDockWidgetPluginGui(
@@ -15,10 +15,10 @@ local function InitializeDockWidgetGui()
 	devTrackDockWidget.Title = "DevTrack"
 
 	Roact.mount(
-		Roact.createElement(Theme, {}, {
-			Roact.createElement(Router, {}, {
-				Roact.createElement(App),
-			}),
+		Roact.createElement(RoactRodux.StoreProvider, {
+			store = Store,
+		}, {
+			App = Roact.createElement(App),
 		}),
 		devTrackDockWidget,
 		"App"

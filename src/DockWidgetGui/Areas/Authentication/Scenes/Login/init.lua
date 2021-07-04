@@ -1,6 +1,7 @@
 local Roact = require(shared.DevTrack.Packages.Roact)
-local WithRouter = require(shared.DevTrack.DockWidgetGui.Services.WithRouter)
-local Merge = require(shared.DevTrack.Resources.Merge)
+local RoactRodux = require(shared.DevTrack.Packages.RoactRodux)
+
+local RouterActions = require(shared.DevTrack.DockWidgetGui.Services.RouterSlice.Actions)
 
 local Login = Roact.Component:extend("Login")
 
@@ -19,16 +20,18 @@ function Login:render()
 			Position = UDim2.new(0.5, 0, 0.5, 16),
 			Text = "Go To Register",
 			[Roact.Event.MouseButton1Click] = function(rbx)
-				self.props.router.setCurrentRoute("Authentication/Register")
+				self.props.setRoute("Authentication/Register")
 			end,
 		}),
 	})
 end
 
-local function LoginWrapper(props)
-	return WithRouter(function(router)
-		return Roact.createElement(Login, Merge(props, { router = router }))
-	end)
-end
-
-return LoginWrapper
+return RoactRodux.connect(function(state, props)
+	return {}
+end, function(dispatch)
+	return {
+		setRoute = function(route)
+			dispatch(RouterActions.setRoute(route))
+		end,
+	}
+end)(Login)

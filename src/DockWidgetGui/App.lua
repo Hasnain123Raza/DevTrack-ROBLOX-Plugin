@@ -1,14 +1,25 @@
 local Roact = require(shared.DevTrack.Packages.Roact)
-local Llama = require(shared.DevTrack.Packages.Llama)
+local RoactRodux = require(shared.DevTrack.Packages.RoactRodux)
 
-local WithTheme = require(shared.DevTrack.DockWidgetGui.Services.WithTheme)
+local ThemeActions = require(shared.DevTrack.DockWidgetGui.Services.ThemeSlice.Actions)
+local ThemeSelectors = require(shared.DevTrack.DockWidgetGui.Services.ThemeSlice.Selectors)
 
 local Areas = shared.DevTrack.DockWidgetGui.Areas
 local Authentication = require(Areas.Authentication)
 
 local App = Roact.Component:extend("App")
 
-function App:render(props)
+function App:init()
+	self.ThemeChangedConnection = nil
+end
+
+function App:didMount()
+	self.ThemeChangedConnection = settings().Studio.ThemeChanged:Connect(function()
+		self.props:setTheme({})
+	end)
+end
+
+function App:render()
 	return Roact.createElement("Frame", {
 		Name = "App",
 		Size = UDim2.new(1, 0, 1, 0),
@@ -18,10 +29,16 @@ function App:render(props)
 	})
 end
 
-local function AppWrapper(props)
-	return WithTheme(function(theme)
-		return Roact.createElement(App, Llama.Dictionary.merge(props, { theme = theme }))
-	end)
+function App:willUnmount()
+	self.ThemeChangedConnection:Disconnect()
 end
 
-return AppWrapper
+return RoactRodux.connect(function(state, props)
+	return { Theme = ThemeSelectors.selectCurrentTheme(state) }
+end, function(dispatch)
+	return {
+		setTheme = function(theme)
+			dispatch(ThemeActions.setTheme(theme))
+		end,
+	}
+end)(App)

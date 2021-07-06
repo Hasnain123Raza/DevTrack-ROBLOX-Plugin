@@ -9,7 +9,7 @@ local App = require(shared.DevTrack.DockWidgetGui.App)
 local function InitializeDockWidgetGui()
 	local devTrackDockWidget = plugin:CreateDockWidgetPluginGui(
 		"DevTrackDockWidget",
-		DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, false, 400, 400, 300, 300)
+		DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, false, 400, 400, 250, 250)
 	)
 
 	devTrackDockWidget.Title = "DevTrack"

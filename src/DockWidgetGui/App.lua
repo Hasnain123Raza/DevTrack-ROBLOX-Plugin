@@ -6,6 +6,7 @@ local ThemeSelectors = require(shared.DevTrack.DockWidgetGui.Services.ThemeSlice
 
 local Areas = shared.DevTrack.DockWidgetGui.Areas
 local Authentication = require(Areas.Authentication)
+local Miscellaneous = require(Areas.Miscellaneous)
 
 local App = Roact.Component:extend("App")
 
@@ -26,6 +27,7 @@ function App:render()
 		BackgroundColor3 = settings().Studio.Theme:GetColor(Enum.StudioStyleGuideColor.MainBackground),
 	}, {
 		Authentication = Roact.createElement(Authentication),
+		Miscellaneous = Roact.createElement(Miscellaneous),
 	})
 end
 

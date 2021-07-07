@@ -16,7 +16,7 @@ local function TallView()
 		LoginForm = Roact.createElement(LoginForm, {
 			AnchorPoint = Vector2.new(0.5, 1),
 			Position = UDim2.new(0.5, 0, 1, 0),
-			Size = UDim2.new(1, 0, 0.6, 0),
+			Size = UDim2.new(0.9, 0, 0.6, 0),
 		}),
 	})
 end

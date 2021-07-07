@@ -7,13 +7,13 @@ local NormalView = require(script.Components.NormalView)
 local TallView = require(script.Components.TallView)
 local WideView = require(script.Components.WideView)
 
-local Login = Roact.Component:extend("Login")
+local Welcome = Roact.Component:extend("Welcome")
 
-function Login:init()
+function Welcome:init()
 	self:setState({ absoluteSize = Vector2.new() })
 end
 
-function Login:render()
+function Welcome:render()
 	local selectedView
 	local absoluteSize = self.state.absoluteSize
 
@@ -26,7 +26,7 @@ function Login:render()
 	end
 
 	return Roact.createElement("Frame", {
-		Name = "Login",
+		Name = "Welcome",
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		Size = UDim2.new(1, -16, 1, -16),
@@ -49,4 +49,4 @@ end, function(dispatch)
 			dispatch(RouterActions.setRoute(route))
 		end,
 	}
-end)(Login)
+end)(Welcome)

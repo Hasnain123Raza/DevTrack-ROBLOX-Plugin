@@ -1,4 +1,8 @@
 local Roact = require(shared.DevTrack.Packages.Roact)
+local RoactRodux = require(shared.DevTrack.Packages.RoactRodux)
+
+local AuthenticationActions = require(shared.DevTrack.DockWidgetGui.Services.AuthenticationSlice.Actions)
+local AuthenticationSelectors = require(shared.DevTrack.DockWidgetGui.Services.AuthenticationSlice.Selectors)
 
 local function WelcomePage(props)
 	return Roact.createElement("Frame", {
@@ -42,8 +46,24 @@ local function WelcomePage(props)
 			Font = Enum.Font.RobotoMono,
 			TextSize = 24,
 			Text = "Continue",
+			[Roact.Event.MouseButton1Click] = function(rbx)
+				print(props.isAuthenticated)
+				print(props.user)
+				props.getAuthenticationAsync()
+			end,
 		}),
 	})
 end
 
-return WelcomePage
+return RoactRodux.connect(function(state, props)
+	return {
+		isAuthenticated = AuthenticationSelectors.selectIsAuthenticated(state),
+		user = AuthenticationSelectors.selectUser(state),
+	}
+end, function(dispatch)
+	return {
+		getAuthenticationAsync = function()
+			dispatch(AuthenticationActions.getAuthenticationAsync)
+		end,
+	}
+end)(WelcomePage)

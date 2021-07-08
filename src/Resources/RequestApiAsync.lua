@@ -15,8 +15,6 @@ local function RequestApiAsync(requestOptions)
 	}
 	requestOptions.Headers.Cookie = Cookie
 
-	print(requestOptions.Url)
-
 	return Promise.new(function(resolve, reject)
 		local success, response = pcall(function()
 			if requestOptions.Body then
